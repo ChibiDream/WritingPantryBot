@@ -1,0 +1,1 @@
+exports.REP_EMBED = '#0099ff';

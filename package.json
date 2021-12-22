@@ -1,0 +1,24 @@
+{
+  "name": "writingpantrybot",
+  "version": "0.0.1",
+  "description": "Discord Bot for the Writing Pantry Discord Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChibiDream/WritingPantryBot.git"
+  },
+  "author": "ChibiDream",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChibiDream/WritingPantryBot/issues"
+  },
+  "homepage": "https://github.com/ChibiDream/WritingPantryBot#readme",
+  "dependencies": {
+    "better-sqlite3": "^7.4.5",
+    "discord.js": "^13.3.1"
+  }
+}
