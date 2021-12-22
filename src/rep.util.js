@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const COLORS = require("./config/colors");
+const COLORS = require("../config/colors");
 
 exports.increaseRep = (client, message) => {
     const userId = message.mentions.users.keys().next().value;

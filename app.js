@@ -2,8 +2,8 @@ const Discord = require("discord.js");
 const SECRET = require("./config/secret");
 const SQLite = require("better-sqlite3");
 const sql = new SQLite("./scores.sqlite");
-const dbUtils = require("./database.util");
-const repUtils = require("./rep.util");
+const dbUtils = require("./src/database.util");
+const repUtils = require("./src/rep.util");
 
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES] });
 
