@@ -99,13 +99,17 @@ exports.sendBoardWeekReps = (client, message) => {
         .setTitle('Weekly Rep Count Board');
 
     console.log(weekReps);
-    weekReps.forEach((week, i) => {
-        const user = client.getRepCount.get(week.user_id);
-        exampleEmbed
-            .addField("User", user.user, true)
-            .addField("Weekly Rep", `${week.week_reps}`, true)
-            .addField('\u200b', '\u200b', true);
-    });
+    if (weekReps.length > 0) {
+        weekReps.forEach((week, i) => {
+            const user = client.getRepCount.get(week.user_id);
+            exampleEmbed
+                .addField("User", user.user, true)
+                .addField("Weekly Rep", `${week.week_reps}`, true)
+                .addField('\u200b', '\u200b', true);
+        });
+    } else {
+        exampleEmbed.setDescription("There are no users who have earned rep this week :(");
+    }
 
     message.channel.send({embeds: [exampleEmbed]});
 }
@@ -118,13 +122,18 @@ exports.sendBoardMonthReps = (client, message) => {
         .setTitle('Monthly Rep Count Board');
 
     console.log(monthReps);
-    monthReps.forEach((month, i) => {
-        const user = client.getRepCount.get(month.user_id);
-        exampleEmbed
-            .addField("User", user.user, true)
-            .addField("Monthly Rep", `${month.month_reps}`, true)
-            .addField('\u200b', '\u200b', true);
-    });
+    if (monthReps.length > 0) {
+        monthReps.forEach((month, i) => {
+            const user = client.getRepCount.get(month.user_id);
+            exampleEmbed
+                .addField("User", user.user, true)
+                .addField("Monthly Rep", `${month.month_reps}`, true)
+                .addField('\u200b', '\u200b', true);
+        });
+    } else {
+        exampleEmbed.setDescription("There are no users who have earned rep this month :(");
+    }
+    
 
     message.channel.send({embeds: [exampleEmbed]});
 }
@@ -137,13 +146,18 @@ exports.sendBoardAllTimeReps = (client, message) => {
         .setTitle('All Time Rep Count Board');
 
     console.log(allTimeReps);
-    allTimeReps.forEach((all, i) => {
-        const user = client.getRepCount.get(all.user_id);
-        exampleEmbed
-            .addField("User", user.user, true)
-            .addField("All Time Rep", `${all.all_reps}`, true)
-            .addField('\u200b', '\u200b', true);
-    });
+    if (allTimeReps.length > 0) {
+        allTimeReps.forEach((all, i) => {
+            const user = client.getRepCount.get(all.user_id);
+            exampleEmbed
+                .addField("User", user.user, true)
+                .addField("All Time Rep", `${all.all_reps}`, true)
+                .addField('\u200b', '\u200b', true);
+        });
+    } else {
+        exampleEmbed.setDescription("There are no users with rep currently :(");
+    }
+    
 
     message.channel.send({embeds: [exampleEmbed]});
 }
