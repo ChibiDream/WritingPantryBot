@@ -4,3 +4,4 @@ secret.js
 *.sqlite-shm
 *.sqlite-wal
 token.txt
+*.pem
