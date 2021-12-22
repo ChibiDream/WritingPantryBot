@@ -4,11 +4,13 @@ const SQLite = require("better-sqlite3");
 const sql = new SQLite("./scores.sqlite");
 const dbUtils = require("./src/database.util");
 const repUtils = require("./src/rep.util");
+const helpUtils = require("./src/help.util");
 
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES] });
 
 client.on("ready", () => {
     console.log(`Logged in as Writing Pantry Bot.`);
+    client.user.setActivity(`(help) at the start of any message.`, {type: 2});
 
     dbUtils.createTables(sql);
     dbUtils.prepareStatements(client, sql);
@@ -36,6 +38,8 @@ client.on("messageCreate", message => {
             repUtils.sendBoardMonthReps(client, message);
         } else if (message.content.substring(0, 5) == "(all)") {
             repUtils.sendBoardAllTimeReps(client, message);
+        } else if (message.content.substring(0, 6) == "(help)") {
+            helpUtils.sendHelpMessage(message);
         }
     }
 });
