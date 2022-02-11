@@ -1,10 +1,10 @@
-const Discord = require("discord.js");
-const COLORS = require("../config/colors");
+import Discord from 'discord.js';
+import { REPUTATION_EMBED_COLOR } from '../../config/colors';
 
-exports.sendHelpMessage = (message) => {
+export default function sendHelpMessage(message: Discord.Message<boolean>) {
     let exampleEmbed = new Discord.MessageEmbed();
     exampleEmbed
-        .setColor(COLORS.REP_EMBED)
+        .setColor(REPUTATION_EMBED_COLOR)
         .setTitle("Bot Command List")
         .addField("(rep) @<user> [message]", "Gives a reputation point to the <user> and provides an option [message] for why they were repped.")
         .addField("(count) @<user>", "See the reputation points for a certain <user>.")

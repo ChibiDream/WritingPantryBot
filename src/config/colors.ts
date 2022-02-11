@@ -1,0 +1,1 @@
+export const REPUTATION_EMBED_COLOR = '#0099ff';
