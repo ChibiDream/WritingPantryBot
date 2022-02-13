@@ -5,10 +5,11 @@ import {
     upsertUserReputation
 } from '../../../database/Reputation/UserReputations/UserReputations.queries';
 
-export default function increaseReputation(message: Discord.Message<boolean>) {
-    const userId = message.mentions?.users.keys().next().value;
-    const username = message.mentions?.users.get(userId)?.username;
-    const userUrl = message.mentions?.users.get(userId)?.avatarURL();
+export default function increaseReputation(user: Discord.User) {
+    const userId = user.id;
+    const username = user.username;
+    const userUrl = user.avatarURL();
+    
     if (!userId || !username || !userUrl) return;
 
     let repCount = getReputationCount(userId);

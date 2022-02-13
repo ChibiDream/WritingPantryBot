@@ -9,11 +9,11 @@ import {
     getReputationCount 
 } from '../../../database/Reputation/UserReputations/UserReputations.queries';
 
-export default function sendByMonth(message: Discord.Message<boolean>) {
+export default function generateLeaderboardByMonth(): Discord.MessageEmbed {
     const monthReps = getReputationLeaderboardByMonth();
 
-    let exampleEmbed = new Discord.MessageEmbed();
-    exampleEmbed
+    let boardEmbed = new Discord.MessageEmbed();
+    boardEmbed
         .setColor(REPUTATION_EMBED_COLOR)
         .setTitle('Monthly Rep Count Board');
 
@@ -21,15 +21,15 @@ export default function sendByMonth(message: Discord.Message<boolean>) {
         monthReps.forEach((month, i) => {
             const user = getReputationCount(month.user_id);
             if (user) {
-                exampleEmbed
+                boardEmbed
                     .addField("User", user.user, true)
                     .addField("Monthly Rep", `${month.month_reps}`, true)
                     .addField('\u200b', '\u200b', true);
             }
         });
     } else {
-        exampleEmbed.setDescription("There are no users who have earned rep this month :(");
+        boardEmbed.setDescription("There are no users who have earned rep this month :(");
     }
 
-    message.channel.send({embeds: [exampleEmbed]});
+    return boardEmbed;
 }

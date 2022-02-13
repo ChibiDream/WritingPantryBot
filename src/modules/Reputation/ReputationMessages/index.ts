@@ -1,2 +1,3 @@
 export * from './createReputationMessage';
-export * from './sendReputationMessage';
+export * from './generateReputationMessages';
+export * from './generateReputationMessageReply';

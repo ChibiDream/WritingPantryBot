@@ -1,3 +1,4 @@
+import { infoLog } from '../../../../logger';
 import sql from '../Reputation.sql';
 import { 
     RepuationMessage,
@@ -13,20 +14,22 @@ export function getReputationMessagesByUser(id: string): RepuationMessage[] {
         FROM ${RepuationMessagesTable} 
         WHERE user_id = ? AND message IS NOT NULL 
         ORDER BY created_at DESC;`
-    ).get(id);
+    ).all(id);
 
     connect.close();
 
     return data;
 }
 
-export function createReputationMessage(reputationMessage: CreateReputationMessageProps) {
+export function postReputationMessage(reputationMessage: CreateReputationMessageProps) {
     const connect = sql();
 
     connect.prepare<CreateReputationMessageProps>(`
         INSERT INTO ${RepuationMessagesTable} (user_id, message, author_name, author_url) 
         VALUES (@user_id, @message, @author_name, @author_url);`
     ).run(reputationMessage);
+
+    infoLog.info("Reputation Message Created", reputationMessage);
 
     connect.close();
 }

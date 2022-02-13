@@ -1,6 +1,7 @@
 import sql from '../Reputation.sql';
 import { RepuationMessagesTable } from './ReputationMessages.types';
 import { UserReputationsTable } from '../UserReputations/UserReputations.type';
+import { infoLog } from '../../../../logger';
 
 export default function createReputationMessagesTable() {
     const connect = sql();
@@ -26,6 +27,8 @@ export default function createReputationMessagesTable() {
         // Ensure that the "id" row is always unique and indexed.
         connect.pragma("synchronous = 1");
         connect.pragma("journal_mode = wal");
+
+        infoLog.info(`${RepuationMessagesTable} table created`);
     }
 
     connect.close();

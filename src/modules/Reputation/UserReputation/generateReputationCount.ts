@@ -6,23 +6,23 @@ import {
     getReputationCount 
 } from '../../../database/Reputation/UserReputations/UserReputations.queries';
 
-export default function sendReputationCount (message: Discord.Message<boolean>) {
-    const userId = message.mentions.users.keys().next().value;
+export default function generateReputationCount (user: Discord.User) {
+    const userId = user.id;
     const repUser = getReputationCount(userId);
 
-    let exampleEmbed = new Discord.MessageEmbed();
-    exampleEmbed.setColor(REPUTATION_EMBED_COLOR);
+    let countEmbed = new Discord.MessageEmbed();
+    countEmbed.setColor(REPUTATION_EMBED_COLOR);
 
     if (repUser) {
-        exampleEmbed
+        countEmbed
             .setTitle('Rep Count')
             .setThumbnail(repUser.user_url)
             .setDescription(`${repUser.user} has ${repUser.rep_count} Reps`);
     } else {
-        exampleEmbed
+        countEmbed
             .setTitle('Rep Count')
             .setDescription(`That user currently doesn't have any rep :(`);
     }
 
-    message.channel.send({embeds: [exampleEmbed]});
+    return countEmbed;
 }
