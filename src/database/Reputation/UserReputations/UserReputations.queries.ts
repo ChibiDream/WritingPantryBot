@@ -15,7 +15,8 @@ export function getReputationCount(id: string): UserReputation | undefined {
 
     connect.close();
 
-    if (data) return data;
+    // Data is undefined when the query does not find a user rep with the id
+    return data;
 }
 
 export function upsertUserReputation(userReputation: UserReputation) {

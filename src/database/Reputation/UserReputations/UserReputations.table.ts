@@ -2,18 +2,13 @@ import { infoLog } from '../../../../logger';
 import sql from '../Reputation.sql';
 import { UserReputationsTable } from './UserReputations.type';
 
-export default function createUserReputationsTable() {
-    const connect = sql();
 
-    const userRepTable = connect.prepare(`
-        SELECT count(*) 
-        FROM sqlite_master 
-        WHERE type='table' AND name = '${UserReputationsTable}';`
-    ).get();
+export function createUserReputationsTable() {
+    const connect = sql();
     
-    if (!userRepTable['count(*)']) {
+    if (!userReputationsTableExists()) {
         // If the table isn't there, create it and setup the database correctly.
-        connect.prepare(`CREATE TABLE ${UserReputationsTable} (
+        connect.prepare<[]>(`CREATE TABLE ${UserReputationsTable} (
             id TEXT PRIMARY KEY,
             user TEXT,
             user_url TEXT,
@@ -29,4 +24,20 @@ export default function createUserReputationsTable() {
     }
 
     connect.close();
+}
+
+export function userReputationsTableExists(): boolean {
+    const connect = sql();
+
+    // Counts how many of the UserRepuationsTables exist (should be 0 or 1)
+    const userRepTable = connect.prepare<[]>(`
+        SELECT count(*) 
+        FROM sqlite_master 
+        WHERE type='table' AND name = '${UserReputationsTable}';`
+    ).get();
+
+    connect.close();
+
+    // 0 or 1 does not appear to auto convert to boolean on return
+    return (userRepTable['count(*)'] ? true : false);
 }

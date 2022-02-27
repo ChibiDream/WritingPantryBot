@@ -10,7 +10,7 @@ export type RepuationMessage = {
 
 export type CreateReputationMessageProps = {
     user_id: string;
-    message: string;
+    message: string | null;
     author_name: string;
     author_url: string;
 }

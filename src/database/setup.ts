@@ -1,5 +1,5 @@
-import createUserReputationsTable from "./Reputation/UserReputations/UserReputations.table";
-import createReputationMessagesTable from "./Reputation/ReputationMessages/ReputationMessages.table";
+import { createUserReputationsTable } from "./Reputation/UserReputations/UserReputations.table";
+import { createReputationMessagesTable } from "./Reputation/ReputationMessages/ReputationMessages.table";
 
 export function createDatabaseTables() {
 

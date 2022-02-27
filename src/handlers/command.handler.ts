@@ -11,6 +11,8 @@ import generateReputationMessageReply from '../modules/Reputation/ReputationMess
 
 export default function commandHandler(command: Discord.CommandInteraction) {
     const author = command.user;
+    if (author.bot) return;
+
     const commandName = command.commandName;    
 
     if (commandName == "leaderboard") {
@@ -31,6 +33,9 @@ export default function commandHandler(command: Discord.CommandInteraction) {
         const str = command.options.getString("string", false);
         
         if (user) {
+            if (author.id == user.id) return;
+            if (user.bot) return;
+
             increaseReputation(user);
 
             if (str) {

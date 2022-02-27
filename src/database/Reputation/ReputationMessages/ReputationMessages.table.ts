@@ -3,16 +3,10 @@ import { RepuationMessagesTable } from './ReputationMessages.types';
 import { UserReputationsTable } from '../UserReputations/UserReputations.type';
 import { infoLog } from '../../../../logger';
 
-export default function createReputationMessagesTable() {
+export function createReputationMessagesTable() {
     const connect = sql();
 
-    const messagesTable = connect.prepare(`
-        SELECT count(*) 
-        FROM sqlite_master 
-        WHERE type='table' AND name = '${RepuationMessagesTable}';`
-    ).get();
-
-    if (!messagesTable['count(*)']) {
+    if (!reputationMessagesTableExists()) {
 
         // If the table isn't there, create it and setup the database correctly.
         connect.prepare(`CREATE TABLE ${RepuationMessagesTable} (
@@ -32,4 +26,20 @@ export default function createReputationMessagesTable() {
     }
 
     connect.close();
+}
+
+export function reputationMessagesTableExists(): boolean {
+    const connect = sql();
+
+    // Counts how many of the UserRepuationsTables exist (should be 0 or 1)
+    const messagesTable = connect.prepare(`
+        SELECT count(*) 
+        FROM sqlite_master 
+        WHERE type='table' AND name = '${RepuationMessagesTable}';`
+    ).get();
+
+    connect.close();
+
+    // 0 or 1 does not appear to auto convert to boolean on return
+    return (messagesTable['count(*)'] ? true : false);
 }

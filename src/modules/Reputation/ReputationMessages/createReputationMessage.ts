@@ -4,14 +4,15 @@ import {
     postReputationMessage 
 } from '../../../database/Reputation/ReputationMessages/ReputationMessages.queries';
 
-export default function createRepMessage (author: Discord.User, user: Discord.User, message?: string) {
+export default function createReputationMessage (author: Discord.User, user: Discord.User, message?: string) {    
     const userId = user.id;
     const authorName = author.username;
     const authorUrl = author.avatarURL();
     if (!userId || !authorName || !authorUrl) return;
 
-    if (!message) return;
-    if (message.length <= 0) return;
+    if (!message || message.length <= 0) {
+        message = null;
+    }
 
     postReputationMessage({
         user_id: userId,

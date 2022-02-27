@@ -1,6 +1,5 @@
 import Discord, { Application } from 'discord.js';
 import { infoLog } from '../../logger';
-import SECRET from "../../src/config/secret";
 
 import { 
     LeaderboardCommand,
